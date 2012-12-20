@@ -1,0 +1,26 @@
+project = QtxCore
+description = QtxCore Documentation
+
+headerdirs += ../src \
+              ../../src
+              
+sourcedirs += ../src \
+              ../../src
+
+exampledirs += ../src/examples \
+               ../../examples
+
+imagedirs += ./images
+
+excludedirs +=
+
+
+# Do NOT change the variables after this line unless you know what you are doing.
+
+outputdir = ../../doc/qtxcore
+outputformats = HTML
+
+sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
+headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"
+examples.fileextensions = "*.cpp *.h *.js *.svg *.xml *.ui *.qml"
+examples.imageextensions = "*.png *.jpeg *.jpg *.gif *.mng"

@@ -1,0 +1,8 @@
+/*!
+    \module QtxCore
+    \title QtxCore
+    \brief The QtxCore module contains core functionality.
+    
+    The module provides classes and utility function that are useful to an
+    application.
+*/

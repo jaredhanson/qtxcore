@@ -1,0 +1,6 @@
+#ifndef QTXCORE_MODULE_H
+#define QTXCORE_MODULE_H
+
+#include "../src/core/signalcenter.h"
+
+#endif
