@@ -1,6 +1,8 @@
 #include "signalcenter.h"
 #include "dispatchentry.h"
 
+// TEST: git subtree commit in upstream repo
+
 
 /*!
     \class SignalCenter
