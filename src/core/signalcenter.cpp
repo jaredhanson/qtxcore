@@ -1,11 +1,6 @@
 #include "signalcenter.h"
 #include "dispatchentry.h"
 
-// TEST: git subtree commit in upstream repo
-// TEST 2: git subtree commit made in application repo
-// TEST 3: git subtree commit made in application repo and pushed with git subtree push
-// TEST 4: yet another git subtree commit made in application repo and pushed with git subtree push
-
 
 /*!
     \class SignalCenter
