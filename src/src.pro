@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += core
-version.subdir = core
-version.target = sub-core
+core.subdir = core
+core.target = sub-core
