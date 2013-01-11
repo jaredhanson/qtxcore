@@ -25,7 +25,7 @@ const QObject *DispatchEntry::sender() const
     return mSender;
 }
 
-QString DispatchEntry::signal() const
+QString DispatchEntry::notification() const
 {
     return mSignal;
 }
@@ -35,7 +35,7 @@ QObject *DispatchEntry::receiver() const
     return mReceiver;
 }
 
-const char* DispatchEntry::slot() const
+const char* DispatchEntry::method() const
 {
     return mSlot;
 }

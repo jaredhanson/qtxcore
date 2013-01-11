@@ -14,10 +14,10 @@ public:
     ~DispatchEntry();
 
     const QObject *sender() const;
-    QString signal() const;
+    QString notification() const;
 
     QObject *receiver() const;
-    const char *slot() const;
+    const char *method() const;
         
 private:
     const QObject *mSender;
