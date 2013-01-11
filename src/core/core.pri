@@ -1,7 +1,7 @@
 HEADERS += \
     $$PWD/dispatchentry.h \
-    $$PWD/signalcenter.h
+    $$PWD/notificationcenter.h
     
 SOURCES += \
     $$PWD/dispatchentry.cpp \
-    $$PWD/signalcenter.cpp
+    $$PWD/notificationcenter.cpp

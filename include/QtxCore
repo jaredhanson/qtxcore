@@ -2,6 +2,6 @@
 #define QTXCORE_MODULE_H
 
 #include "../src/core/coreglobal.h"
-#include "../src/core/signalcenter.h"
+#include "../src/core/notificationcenter.h"
 
 #endif

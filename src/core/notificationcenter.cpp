@@ -1,4 +1,4 @@
-#include "signalcenter.h"
+#include "notificationcenter.h"
 #include "dispatchentry.h"
 
 QTX_BEGIN_NAMESPACE
@@ -15,11 +15,11 @@ QTX_BEGIN_NAMESPACE
 /*!
     Returns a pointer to the application's default SignalCenter instance.
 */
-SignalCenter* SignalCenter::instance()
+NotificationCenter* NotificationCenter::instance()
 {
-    static SignalCenter *center = 0;
+    static NotificationCenter *center = 0;
     if (!center) {
-        center = new SignalCenter();
+        center = new NotificationCenter();
     }
     return center;
 }
@@ -27,7 +27,7 @@ SignalCenter* SignalCenter::instance()
 /*!
     Constructs a SignalCenter object with the given \a parent.
 */
-SignalCenter::SignalCenter(QObject *parent /* = 0 */)
+NotificationCenter::NotificationCenter(QObject *parent /* = 0 */)
     : QObject(parent),
       mPoster(0)
 {
@@ -36,14 +36,14 @@ SignalCenter::SignalCenter(QObject *parent /* = 0 */)
 /*!
     Destroy the object.
 */
-SignalCenter::~SignalCenter()
+NotificationCenter::~NotificationCenter()
 {
 }
 
 /*!
     TODO: \a signal \a receiver \a slot
 */
-void SignalCenter::observe(const QString & signal, QObject *receiver, const char *slot)
+void NotificationCenter::observe(const QString & signal, QObject *receiver, const char *slot)
 {
     observe(0, signal, receiver, slot);
 }
@@ -51,7 +51,7 @@ void SignalCenter::observe(const QString & signal, QObject *receiver, const char
 /*!
     TODO: \a sender \a signal \a receiver \a slot
 */
-void SignalCenter::observe(const QObject *sender, const QString & signal,
+void NotificationCenter::observe(const QObject *sender, const QString & signal,
                            QObject *receiver, const char *slot)
 {
     DispatchEntry *entry = new DispatchEntry(sender, signal, receiver, slot);
@@ -63,7 +63,7 @@ void SignalCenter::observe(const QObject *sender, const QString & signal,
 /*!
     TODO: \a receiver
 */
-void SignalCenter::unobserve(const QObject *receiver)
+void NotificationCenter::unobserve(const QObject *receiver)
 {
     unobserve(0, "", receiver);
 }
@@ -71,7 +71,7 @@ void SignalCenter::unobserve(const QObject *receiver)
 /*!
     TODO: \a sender \a signal \a receiver
 */
-void SignalCenter::unobserve(const QObject *sender, const QString & signal, const QObject *receiver)
+void NotificationCenter::unobserve(const QObject *sender, const QString & signal, const QObject *receiver)
 {
     QMutableListIterator<DispatchEntry *> itr(mDispatchTable);
     while (itr.hasNext()) {
@@ -87,8 +87,8 @@ void SignalCenter::unobserve(const QObject *sender, const QString & signal, cons
 /*!
     TODO: \a sender \a signal \a val0 \a val1 \a val2 \a val3 \a val4 \a val5 \a val6 \a val7 \a val8 \a val9
 */
-void SignalCenter::post(QObject *sender, const QString & signal,
-                        QGenericArgument val0 /* = QGenericArgument( 0 ) */, QGenericArgument val1 /* = QGenericArgument() */, QGenericArgument val2 /* = QGenericArgument() */, QGenericArgument val3 /* = QGenericArgument() */, QGenericArgument val4 /* = QGenericArgument() */, QGenericArgument val5 /* = QGenericArgument() */, QGenericArgument val6 /* = QGenericArgument() */, QGenericArgument val7 /* = QGenericArgument() */, QGenericArgument val8 /* = QGenericArgument() */, QGenericArgument val9 /* = QGenericArgument() */)
+void NotificationCenter::post(QObject *sender, const QString & signal,
+                              QGenericArgument val0 /* = QGenericArgument( 0 ) */, QGenericArgument val1 /* = QGenericArgument() */, QGenericArgument val2 /* = QGenericArgument() */, QGenericArgument val3 /* = QGenericArgument() */, QGenericArgument val4 /* = QGenericArgument() */, QGenericArgument val5 /* = QGenericArgument() */, QGenericArgument val6 /* = QGenericArgument() */, QGenericArgument val7 /* = QGenericArgument() */, QGenericArgument val8 /* = QGenericArgument() */, QGenericArgument val9 /* = QGenericArgument() */)
 {
     mPoster = sender;
     
@@ -118,12 +118,12 @@ void SignalCenter::post(QObject *sender, const QString & signal,
 /*!
     TODO:
 */
-QObject *SignalCenter::poster() const
+QObject *NotificationCenter::poster() const
 {
     return mPoster;
 }
 
-void SignalCenter::onDestroyed(QObject * obj /* = 0 */)
+void NotificationCenter::onDestroyed(QObject * obj /* = 0 */)
 {
     if (!obj) {
         return;

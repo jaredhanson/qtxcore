@@ -1,5 +1,5 @@
-#ifndef SIGNALCENTER_H
-#define SIGNALCENTER_H
+#ifndef QTXCORE_NOTIFICATIONCENTER_H
+#define QTXCORE_NOTIFICATIONCENTER_H
 
 #include "coreglobal.h"
 #include <QtCore>
@@ -11,16 +11,16 @@ QTX_BEGIN_NAMESPACE
 
 class DispatchEntry;
 
-class SignalCenter : public QObject
+class NotificationCenter : public QObject
 {
     Q_OBJECT
     
 public:
-    static SignalCenter *instance();
+    static NotificationCenter *instance();
 
 public:
-    SignalCenter(QObject *parent = 0);
-    ~SignalCenter();
+    NotificationCenter(QObject *parent = 0);
+    ~NotificationCenter();
 
     void observe(const QString & signal, QObject *receiver, const char *slot);
     void observe(const QObject *sender, const QString & signal, QObject *receiver, const char *slot);
@@ -45,4 +45,4 @@ private:
 
 QTX_END_NAMESPACE
 
-#endif // SIGNALCENTER_H
+#endif // QTXCORE_NOTIFICATIONCENTER_H
