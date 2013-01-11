@@ -1,5 +1,7 @@
 #include "dispatchentry.h"
 
+QTX_BEGIN_NAMESPACE
+
 
 DispatchEntry::DispatchEntry(const QObject *sender, const QString & signal, QObject *receiver, const char *slot)
     : mSender(sender),
@@ -37,3 +39,6 @@ const char* DispatchEntry::slot() const
 {
     return mSlot;
 }
+
+
+QTX_END_NAMESPACE

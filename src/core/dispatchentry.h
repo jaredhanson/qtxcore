@@ -1,7 +1,10 @@
 #ifndef DISPATCHENTRY_H
 #define DISPATCHENTRY_H
 
+#include "coreglobal.h"
 #include <QtCore>
+
+QTX_BEGIN_NAMESPACE
 
 
 class DispatchEntry
@@ -22,5 +25,8 @@ private:
     QObject *mReceiver;
     char *mSlot;
 };
+
+
+QTX_END_NAMESPACE
 
 #endif // SIGNALCENTER_H

@@ -1,6 +1,8 @@
 #include "signalcenter.h"
 #include "dispatchentry.h"
 
+QTX_BEGIN_NAMESPACE
+
 
 /*!
     \class SignalCenter
@@ -129,3 +131,6 @@ void SignalCenter::onDestroyed(QObject * obj /* = 0 */)
     
     unobserve(obj);
 }
+
+
+QTX_END_NAMESPACE

@@ -1,7 +1,11 @@
 #ifndef SIGNALCENTER_H
 #define SIGNALCENTER_H
 
+#include "coreglobal.h"
 #include <QtCore>
+
+QTX_BEGIN_NAMESPACE
+
 
 #define QTX_METHOD(s) QMetaObject::normalizedSignature(#s)
 
@@ -37,5 +41,8 @@ private:
 
     QObject *mPoster;
 };
+
+
+QTX_END_NAMESPACE
 
 #endif // SIGNALCENTER_H
