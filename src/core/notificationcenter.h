@@ -22,7 +22,9 @@ public:
     NotificationCenter(QObject *parent = 0);
     ~NotificationCenter();
 
+    void observe(QObject *receiver, const char *method);
     void observe(const QString & notification, QObject *receiver, const char *method);
+    void observe(const QObject *sender, QObject *receiver, const char *method);
     void observe(const QObject *sender, const QString & notification, QObject *receiver, const char *method);
     
     void unobserve(const QObject *receiver);

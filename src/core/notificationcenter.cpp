@@ -40,12 +40,22 @@ NotificationCenter::~NotificationCenter()
 {
 }
 
+void NotificationCenter::observe(QObject *receiver, const char *method)
+{
+    observe(0, "", receiver, method);
+}
+
 /*!
     TODO: \a signal \a receiver \a slot
 */
 void NotificationCenter::observe(const QString & notification, QObject *receiver, const char *method)
 {
     observe(0, notification, receiver, method);
+}
+
+void NotificationCenter::observe(const QObject *sender, QObject *receiver, const char *method)
+{
+    observe(sender, "", receiver, method);
 }
 
 /*!

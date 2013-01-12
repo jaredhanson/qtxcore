@@ -15,6 +15,9 @@ public:
     MockObserver();
     ~MockObserver();
     
+    void observe();
+    void observe(const QString & notification);
+    void observe(const QObject *poster);
     void observe(const QObject *poster, const QString & notification);
     void unobserve(const QObject *poster, const QString & notification);
     

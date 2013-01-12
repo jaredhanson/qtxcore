@@ -12,6 +12,21 @@ MockObserver::~MockObserver()
 {
 }
 
+void MockObserver::observe()
+{
+    mNotificationCenter->observe(this, QTX_METHOD(onNotification()));
+}
+
+void MockObserver::observe(const QString & notification)
+{
+    mNotificationCenter->observe(notification, this, QTX_METHOD(onNotification()));
+}
+
+void MockObserver::observe(const QObject *poster)
+{
+    mNotificationCenter->observe(poster, this, QTX_METHOD(onNotification()));
+}
+
 void MockObserver::observe(const QObject *poster, const QString & notification)
 {
     mNotificationCenter->observe(poster, notification, this, QTX_METHOD(onNotification()));
