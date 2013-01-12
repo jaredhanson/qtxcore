@@ -26,6 +26,8 @@ public:
     void observe(const QObject *poster, const QString & notification, QObject *observer, const char *method);
     
     void unobserve(const QObject *observer);
+    void unobserve(const QString & notification, const QObject *observer);
+    void unobserve(const QObject *poster, const QObject *observer);
     void unobserve(const QObject *poster, const QString & notification, const QObject *observer);
 
     void post(QObject *poster, const QString & notification,

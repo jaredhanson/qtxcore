@@ -120,24 +120,131 @@ void tst_NotificationCenter::observeSpecificPosterAndSpecificNotification()
     delete obs;
 }
 
+void tst_NotificationCenter::unobserveAnyPosterAndAnyNotification()
+{
+    MockObserver *obs = new MockObserver();
+    obs->setNotificationCenter(mNotificationCenter);
+    
+    MockPoster *poster1 = new MockPoster();
+    poster1->setNotificationCenter(mNotificationCenter);
+    MockPoster *poster2 = new MockPoster();
+    poster2->setNotificationCenter(mNotificationCenter);
+    
+    
+    obs->observe(poster1, "notify");
+    obs->observe(poster1, "notify-again");
+    obs->observe(poster2, "notify");
+    poster1->post("notify");
+    poster1->post("notify-again");
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 3);
+    
+    obs->unobserve();
+    poster1->post("notify");
+    QCOMPARE(obs->count(), 3);
+    poster1->post("notify-again");
+    QCOMPARE(obs->count(), 3);
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 3);
+    
+    delete poster2;
+    delete poster1;
+    delete obs;
+}
+
+void tst_NotificationCenter::unobserveAnyPosterAndSpecificNotification()
+{
+    MockObserver *obs = new MockObserver();
+    obs->setNotificationCenter(mNotificationCenter);
+    
+    MockPoster *poster1 = new MockPoster();
+    poster1->setNotificationCenter(mNotificationCenter);
+    MockPoster *poster2 = new MockPoster();
+    poster2->setNotificationCenter(mNotificationCenter);
+    
+    
+    obs->observe(poster1, "notify");
+    obs->observe(poster1, "notify-again");
+    obs->observe(poster2, "notify");
+    poster1->post("notify");
+    poster1->post("notify-again");
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 3);
+    
+    obs->unobserve("notify");
+    poster1->post("notify");
+    QCOMPARE(obs->count(), 3);
+    poster1->post("notify-again");
+    QCOMPARE(obs->count(), 4);
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 4);
+    
+    delete poster2;
+    delete poster1;
+    delete obs;
+}
+
+void tst_NotificationCenter::unobserveSpecificPosterAndAnyNotification()
+{
+    MockObserver *obs = new MockObserver();
+    obs->setNotificationCenter(mNotificationCenter);
+    
+    MockPoster *poster1 = new MockPoster();
+    poster1->setNotificationCenter(mNotificationCenter);
+    MockPoster *poster2 = new MockPoster();
+    poster2->setNotificationCenter(mNotificationCenter);
+    
+    
+    obs->observe(poster1, "notify");
+    obs->observe(poster1, "notify-again");
+    obs->observe(poster2, "notify");
+    poster1->post("notify");
+    poster1->post("notify-again");
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 3);
+    
+    obs->unobserve(poster1);
+    poster1->post("notify");
+    QCOMPARE(obs->count(), 3);
+    poster1->post("notify-again");
+    QCOMPARE(obs->count(), 3);
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 4);
+    
+    delete poster2;
+    delete poster1;
+    delete obs;
+}
+
 void tst_NotificationCenter::unobserveSpecificPosterAndSpecificNotification()
 {
     MockObserver *obs = new MockObserver();
     obs->setNotificationCenter(mNotificationCenter);
     
-    MockPoster *poster = new MockPoster();
-    poster->setNotificationCenter(mNotificationCenter);
+    MockPoster *poster1 = new MockPoster();
+    poster1->setNotificationCenter(mNotificationCenter);
+    MockPoster *poster2 = new MockPoster();
+    poster2->setNotificationCenter(mNotificationCenter);
     
     
-    obs->observe(poster, "notify");
-    poster->post("notify");
-    QCOMPARE(obs->count(), 1);
+    obs->observe(poster1, "notify");
+    obs->observe(poster1, "notify-again");
+    obs->observe(poster2, "notify");
+    poster1->post("notify");
+    poster1->post("notify-again");
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 3);
     
-    obs->unobserve(poster, "notify");
-    poster->post("notify");
-    QCOMPARE(obs->count(), 1);
+    obs->unobserve(poster1, "notify");
+    poster1->post("notify");
+    QCOMPARE(obs->count(), 3);
+    poster1->post("notify-again");
+    QCOMPARE(obs->count(), 4);
+    poster2->post("notify");
+    QCOMPARE(obs->count(), 5);
     
-    delete poster;
+    delete poster2;
+    delete poster1;
     delete obs;
 }
 

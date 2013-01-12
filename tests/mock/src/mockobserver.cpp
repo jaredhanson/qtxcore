@@ -32,6 +32,21 @@ void MockObserver::observe(const QObject *poster, const QString & notification)
     mNotificationCenter->observe(poster, notification, this, QTX_METHOD(onNotification()));
 }
 
+void MockObserver::unobserve()
+{
+    mNotificationCenter->unobserve(this);
+}
+
+void MockObserver::unobserve(const QString & notification)
+{
+    mNotificationCenter->unobserve(notification, this);
+}
+
+void MockObserver::unobserve(const QObject *poster)
+{
+    mNotificationCenter->unobserve(poster, this);
+}
+
 void MockObserver::unobserve(const QObject *poster, const QString & notification)
 {
     mNotificationCenter->unobserve(poster, notification, this);

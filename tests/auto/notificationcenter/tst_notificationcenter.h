@@ -20,6 +20,9 @@ private slots:
     void observeSpecificPosterAndAnyNotification();
     void observeSpecificPosterAndSpecificNotification();
     
+    void unobserveAnyPosterAndAnyNotification();
+    void unobserveAnyPosterAndSpecificNotification();
+    void unobserveSpecificPosterAndAnyNotification();
     void unobserveSpecificPosterAndSpecificNotification();
     
 private:

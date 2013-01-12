@@ -78,6 +78,16 @@ void NotificationCenter::unobserve(const QObject *observer)
     unobserve(0, "", observer);
 }
 
+void NotificationCenter::unobserve(const QString & notification, const QObject *observer)
+{
+    unobserve(0, notification, observer);
+}
+
+void NotificationCenter::unobserve(const QObject *poster, const QObject *observer)
+{
+    unobserve(poster, "", observer);
+}
+
 /*!
     TODO: \a sender \a signal \a receiver
 */

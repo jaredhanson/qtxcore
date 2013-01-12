@@ -19,6 +19,9 @@ public:
     void observe(const QString & notification);
     void observe(const QObject *poster);
     void observe(const QObject *poster, const QString & notification);
+    void unobserve();
+    void unobserve(const QString & notification);
+    void unobserve(const QObject *poster);
     void unobserve(const QObject *poster, const QString & notification);
     
     int count() const;
