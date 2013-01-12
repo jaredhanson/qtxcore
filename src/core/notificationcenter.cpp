@@ -40,54 +40,54 @@ NotificationCenter::~NotificationCenter()
 {
 }
 
-void NotificationCenter::observe(QObject *receiver, const char *method)
+void NotificationCenter::observe(QObject *observer, const char *method)
 {
-    observe(0, "", receiver, method);
+    observe(0, "", observer, method);
 }
 
 /*!
     TODO: \a signal \a receiver \a slot
 */
-void NotificationCenter::observe(const QString & notification, QObject *receiver, const char *method)
+void NotificationCenter::observe(const QString & notification, QObject *observer, const char *method)
 {
-    observe(0, notification, receiver, method);
+    observe(0, notification, observer, method);
 }
 
-void NotificationCenter::observe(const QObject *sender, QObject *receiver, const char *method)
+void NotificationCenter::observe(const QObject *poster, QObject *observer, const char *method)
 {
-    observe(sender, "", receiver, method);
+    observe(poster, "", observer, method);
 }
 
 /*!
     TODO: \a sender \a signal \a receiver \a slot
 */
-void NotificationCenter::observe(const QObject *sender, const QString & notification,
-                                 QObject *receiver, const char *method)
+void NotificationCenter::observe(const QObject *poster, const QString & notification,
+                                 QObject *observer, const char *method)
 {
-    DispatchEntry *entry = new DispatchEntry(sender, notification, receiver, method);
+    DispatchEntry *entry = new DispatchEntry(poster, notification, observer, method);
     mDispatchTable.append(entry);
     
-    QObject::connect(receiver, SIGNAL(destroyed(QObject *)), SLOT(onDestroyed(QObject *)));
+    QObject::connect(observer, SIGNAL(destroyed(QObject *)), SLOT(onDestroyed(QObject *)));
 }
 
 /*!
     TODO: \a receiver
 */
-void NotificationCenter::unobserve(const QObject *receiver)
+void NotificationCenter::unobserve(const QObject *observer)
 {
-    unobserve(0, "", receiver);
+    unobserve(0, "", observer);
 }
 
 /*!
     TODO: \a sender \a signal \a receiver
 */
-void NotificationCenter::unobserve(const QObject *sender, const QString & notification, const QObject *receiver)
+void NotificationCenter::unobserve(const QObject *poster, const QString & notification, const QObject *observer)
 {
     QMutableListIterator<DispatchEntry *> itr(mDispatchTable);
     while (itr.hasNext()) {
         DispatchEntry* entry = itr.next();
-        if (entry->receiver() == receiver
-            && (entry->sender() == sender || !sender)
+        if (entry->observer() == observer
+            && (entry->poster() == poster || !poster)
             && (entry->notification() == notification || notification.isEmpty())) {
             itr.remove();
         }
@@ -97,27 +97,27 @@ void NotificationCenter::unobserve(const QObject *sender, const QString & notifi
 /*!
     TODO: \a sender \a signal \a val0 \a val1 \a val2 \a val3 \a val4 \a val5 \a val6 \a val7 \a val8 \a val9
 */
-void NotificationCenter::post(QObject *sender, const QString & notification,
+void NotificationCenter::post(QObject *poster, const QString & notification,
                               QGenericArgument val0 /* = QGenericArgument( 0 ) */, QGenericArgument val1 /* = QGenericArgument() */, QGenericArgument val2 /* = QGenericArgument() */, QGenericArgument val3 /* = QGenericArgument() */, QGenericArgument val4 /* = QGenericArgument() */, QGenericArgument val5 /* = QGenericArgument() */, QGenericArgument val6 /* = QGenericArgument() */, QGenericArgument val7 /* = QGenericArgument() */, QGenericArgument val8 /* = QGenericArgument() */, QGenericArgument val9 /* = QGenericArgument() */)
 {
-    mPoster = sender;
+    mPoster = poster;
     
     QList<DispatchEntry *> table(mDispatchTable);
     QMutableListIterator<DispatchEntry *> itr(table);
     while (itr.hasNext()) {
         DispatchEntry* entry = itr.next();
-        if ((entry->sender() == sender || !entry->sender())
+        if ((entry->poster() == poster || !entry->poster())
             && (entry->notification() == notification || entry->notification().isEmpty())) {
             
-            QObject *receiver = entry->receiver();
+            QObject *observer = entry->observer();
             const char *method = entry->method();
-            const QMetaObject* metaReceiver = receiver->metaObject();
-            int idx = metaReceiver->indexOfSlot(method);
+            const QMetaObject* metaObserver = observer->metaObject();
+            int idx = metaObserver->indexOfSlot(method);
             if (idx == -1) {
                 continue;
             }
-            QMetaMethod metaMethod = metaReceiver->method(idx);
-            metaMethod.invoke(receiver, Qt::DirectConnection, val0, val1, val2, val3, val4, val5, val6, val7, val8, val9);
+            QMetaMethod metaMethod = metaObserver->method(idx);
+            metaMethod.invoke(observer, Qt::DirectConnection, val0, val1, val2, val3, val4, val5, val6, val7, val8, val9);
         }
     }
 

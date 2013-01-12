@@ -3,13 +3,13 @@
 QTX_BEGIN_NAMESPACE
 
 
-DispatchEntry::DispatchEntry(const QObject *sender, const QString & signal, QObject *receiver, const char *slot)
-    : mSender(sender),
-      mSignal(signal),
-      mReceiver(receiver),
+DispatchEntry::DispatchEntry(const QObject *poster, const QString & notification, QObject *observer, const char *method)
+    : mSender(poster),
+      mSignal(notification),
+      mReceiver(observer),
       mSlot(0)
 {
-    mSlot = qstrdup(slot);
+    mSlot = qstrdup(method);
 }
 
 DispatchEntry::~DispatchEntry()
@@ -20,7 +20,7 @@ DispatchEntry::~DispatchEntry()
     }
 }
 
-const QObject *DispatchEntry::sender() const
+const QObject *DispatchEntry::poster() const
 {
     return mSender;
 }
@@ -30,7 +30,7 @@ QString DispatchEntry::notification() const
     return mSignal;
 }
 
-QObject *DispatchEntry::receiver() const
+QObject *DispatchEntry::observer() const
 {
     return mReceiver;
 }

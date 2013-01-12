@@ -10,13 +10,13 @@ QTX_BEGIN_NAMESPACE
 class DispatchEntry
 {
 public:
-    DispatchEntry(const QObject *sender, const QString & signal, QObject* receiver, const char* slot);
+    DispatchEntry(const QObject *poster, const QString & notification, QObject *observer, const char *method);
     ~DispatchEntry();
 
-    const QObject *sender() const;
+    const QObject *poster() const;
     QString notification() const;
 
-    QObject *receiver() const;
+    QObject *observer() const;
     const char *method() const;
         
 private:

@@ -14,4 +14,8 @@
 #  define QTX_END_NAMESPACE }
 #endif
 
+
+#define QTX_METHOD(s) QMetaObject::normalizedSignature(#s)
+
+
 #endif /* QTXCORE_GLOBAL_H */
