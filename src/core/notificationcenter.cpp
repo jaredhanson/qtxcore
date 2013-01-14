@@ -15,7 +15,7 @@ QTX_BEGIN_NAMESPACE
 /*!
     Returns a pointer to the application's default NotificationCenter instance.
 */
-NotificationCenter* NotificationCenter::instance()
+NotificationCenter *NotificationCenter::instance()
 {
     static NotificationCenter *center = 0;
     if (!center) {

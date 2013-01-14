@@ -1,5 +1,5 @@
-#ifndef DISPATCHENTRY_H
-#define DISPATCHENTRY_H
+#ifndef QTXCORE_DISPATCHENTRY_H
+#define QTXCORE_DISPATCHENTRY_H
 
 #include "coreglobal.h"
 #include <QtCore>
@@ -20,13 +20,13 @@ public:
     const char *method() const;
         
 private:
-    const QObject *mSender;
-    QString mSignal;
-    QObject *mReceiver;
-    char *mSlot;
+    const QObject *mPoster;
+    QString mNotification;
+    QObject *mObserver;
+    char *mMethod;
 };
 
 
 QTX_END_NAMESPACE
 
-#endif // SIGNALCENTER_H
+#endif // QTXCORE_DISPATCHENTRY_H
