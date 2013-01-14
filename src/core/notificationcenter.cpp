@@ -4,6 +4,17 @@
 QTX_BEGIN_NAMESPACE
 
 
+class NotificationCenterPrivate
+{
+public:
+    NotificationCenterPrivate();
+    ~NotificationCenterPrivate();
+    
+    QList<DispatchEntry *> dispatchTable;
+    QObject *poster;
+};
+
+
 /*!
     \class NotificationCenter
     \inmodule QtxCore
@@ -29,7 +40,7 @@ NotificationCenter *NotificationCenter::instance()
 */
 NotificationCenter::NotificationCenter(QObject *parent /* = 0 */)
     : QObject(parent),
-      mPoster(0)
+      d_ptr(new NotificationCenterPrivate())
 {
 }
 
@@ -38,6 +49,10 @@ NotificationCenter::NotificationCenter(QObject *parent /* = 0 */)
 */
 NotificationCenter::~NotificationCenter()
 {
+    if (d_ptr) {
+        delete d_ptr;
+        d_ptr = 0;
+    }
 }
 
 void NotificationCenter::observe(QObject *observer, const char *method)
@@ -65,7 +80,7 @@ void NotificationCenter::observe(const QObject *poster, const QString & notifica
                                  QObject *observer, const char *method)
 {
     DispatchEntry *entry = new DispatchEntry(poster, notification, observer, method);
-    mDispatchTable.append(entry);
+    d_ptr->dispatchTable.append(entry);
     
     QObject::connect(observer, SIGNAL(destroyed(QObject *)), SLOT(onDestroyed(QObject *)));
 }
@@ -93,7 +108,7 @@ void NotificationCenter::unobserve(const QObject *poster, const QObject *observe
 */
 void NotificationCenter::unobserve(const QObject *poster, const QString & notification, const QObject *observer)
 {
-    QMutableListIterator<DispatchEntry *> itr(mDispatchTable);
+    QMutableListIterator<DispatchEntry *> itr(d_ptr->dispatchTable);
     while (itr.hasNext()) {
         DispatchEntry* entry = itr.next();
         if (entry->observer() == observer
@@ -110,9 +125,9 @@ void NotificationCenter::unobserve(const QObject *poster, const QString & notifi
 void NotificationCenter::post(QObject *poster, const QString & notification,
                               QGenericArgument val0 /* = QGenericArgument( 0 ) */, QGenericArgument val1 /* = QGenericArgument() */, QGenericArgument val2 /* = QGenericArgument() */, QGenericArgument val3 /* = QGenericArgument() */, QGenericArgument val4 /* = QGenericArgument() */, QGenericArgument val5 /* = QGenericArgument() */, QGenericArgument val6 /* = QGenericArgument() */, QGenericArgument val7 /* = QGenericArgument() */, QGenericArgument val8 /* = QGenericArgument() */, QGenericArgument val9 /* = QGenericArgument() */)
 {
-    mPoster = poster;
+    d_ptr->poster = poster;
     
-    QList<DispatchEntry *> table(mDispatchTable);
+    QList<DispatchEntry *> table(d_ptr->dispatchTable);
     QMutableListIterator<DispatchEntry *> itr(table);
     while (itr.hasNext()) {
         DispatchEntry* entry = itr.next();
@@ -131,7 +146,7 @@ void NotificationCenter::post(QObject *poster, const QString & notification,
         }
     }
 
-    mPoster = 0;
+    d_ptr->poster = 0;
 }
 
 
@@ -140,7 +155,7 @@ void NotificationCenter::post(QObject *poster, const QString & notification,
 */
 QObject *NotificationCenter::poster() const
 {
-    return mPoster;
+    return d_ptr->poster;
 }
 
 void NotificationCenter::onDestroyed(QObject * obj /* = 0 */)
@@ -150,6 +165,18 @@ void NotificationCenter::onDestroyed(QObject * obj /* = 0 */)
     }
     
     unobserve(obj);
+}
+
+
+NotificationCenterPrivate::NotificationCenterPrivate()
+{
+}
+
+NotificationCenterPrivate::~NotificationCenterPrivate()
+{
+    for (int i = 0; i < dispatchTable.size(); i++) {
+        delete dispatchTable.at(i);
+    }
 }
 
 

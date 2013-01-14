@@ -7,7 +7,7 @@
 QTX_BEGIN_NAMESPACE
 
 
-class DispatchEntry;
+class NotificationCenterPrivate;
 
 class NotificationCenter : public QObject
 {
@@ -38,10 +38,10 @@ public:
 private slots:
     void onDestroyed(QObject *obj = 0);
     
+protected:
+    NotificationCenterPrivate *d_ptr;
 private:
-    QList<DispatchEntry *> mDispatchTable;
-
-    QObject *mPoster;
+    Q_DECLARE_PRIVATE(NotificationCenter);
 };
 
 
