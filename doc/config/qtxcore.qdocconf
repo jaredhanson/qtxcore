@@ -1,14 +1,13 @@
 project = QtxCore
 description = QtxCore Documentation
 
-headerdirs += ../src \
-              ../../src
-              
 sourcedirs += ../src \
               ../../src
 
-exampledirs += ../src/examples \
-               ../../examples
+headerdirs += ../src \
+              ../../src
+
+exampledirs += ../../examples
 
 imagedirs += ./images
 
@@ -17,7 +16,6 @@ excludedirs +=
 
 # Do NOT change the variables after this line unless you know what you are doing.
 
-outputdir = ../../doc/qtxcore
 outputformats = HTML
 
 sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
