@@ -5,9 +5,23 @@ and libraries.
 
 ## Tests
 
+To run the test suite, first configure and build QtxCore as a dynamic library,
+which each test executable will link against.  Then invoke the `check` target
+to execute all tests in the suite.
+
     $ qmake CONFIG+=dylib
     $ make
     $ make check
+
+## Documentation
+
+To generate API documentation, invoke the `docs` target.
+
+    $ make docs
+
+To view the documentation, open it in a web browser.
+
+    $ open doc/qtxcore/qtxcore-module.html
 
 ## License
 

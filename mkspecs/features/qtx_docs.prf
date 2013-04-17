@@ -7,7 +7,6 @@ DOCS_OUTPUTDIR = $$join(__ROOT__,,,/doc/$$DOCS_MODULE)
 
 QDOC += -outputdir $$DOCS_OUTPUTDIR
 doc_command = $$QDOC $$DOCS_CONF
-message($$doc_command)
 
 DOC_TARGETS += prepare_docs generate_docs
 prepare_docs.commands += $$doc_command -prepare -no-link-errors
