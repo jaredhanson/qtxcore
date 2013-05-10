@@ -1,8 +1,12 @@
 /*!
     \module QtxCore
     \title QtxCore
-    \brief The QtxCore module contains core functionality.
+    \brief The QtxCore module contains classes generally useful to applications and modules.
     
-    The module provides classes and utility function that are useful to an
-    application.
+    Many other Qtx modules rely on this module.  To include the definitions of
+    this module's classes, use the following directive:
+    
+    \code
+        #include <QtxCore>
+    \endcode
 */

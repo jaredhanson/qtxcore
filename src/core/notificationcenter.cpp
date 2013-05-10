@@ -18,8 +18,16 @@ public:
 /*!
     \class NotificationCenter
     \inmodule QtxCore
+    
     \brief The NotificationCenter class provides a mechanism for dispatching
            notifications within an application.
+    
+    A notification center is similiar to Qt's signals and slots, but are
+    decoupled from the objects themselves.  In order to connect to a signal, a
+    reference to the emitting object must first be obtained.  In contrast, a
+    notification center serves as an application-wide bus, allowing independent
+    subsystems to communicate using only a reference to a common notification
+    center.
  */
 
 
@@ -45,7 +53,7 @@ NotificationCenter::NotificationCenter(QObject *parent /* = 0 */)
 }
 
 /*!
-    Destroy the object.
+    Destroys the object.
 */
 NotificationCenter::~NotificationCenter()
 {
@@ -55,26 +63,32 @@ NotificationCenter::~NotificationCenter()
     }
 }
 
+/*!
+    Add an \a observer for all notifications from all posters which will invoke \a method.
+*/
 void NotificationCenter::observe(QObject *observer, const char *method)
 {
     observe(0, "", observer, method);
 }
 
 /*!
-    TODO: \a signal \a receiver \a slot
+    Add an \a observer for \a notification from any poster which will invoke \a method.
 */
 void NotificationCenter::observe(const QString & notification, QObject *observer, const char *method)
 {
     observe(0, notification, observer, method);
 }
 
+/*!
+    Add an \a observer for any notification from \a poster which will invoke \a method.
+*/
 void NotificationCenter::observe(const QObject *poster, QObject *observer, const char *method)
 {
     observe(poster, "", observer, method);
 }
 
 /*!
-    TODO: \a sender \a signal \a receiver \a slot
+    Add an \a observer for the given \a notification from \a poster which will invoke \a method.
 */
 void NotificationCenter::observe(const QObject *poster, const QString & notification,
                                  QObject *observer, const char *method)
@@ -86,25 +100,31 @@ void NotificationCenter::observe(const QObject *poster, const QString & notifica
 }
 
 /*!
-    TODO: \a receiver
+    Remove \a observer for all notifications from any poster.
 */
 void NotificationCenter::unobserve(const QObject *observer)
 {
     unobserve(0, "", observer);
 }
 
+/*!
+    Remove \a observer for \a notification from any poster.
+*/
 void NotificationCenter::unobserve(const QString & notification, const QObject *observer)
 {
     unobserve(0, notification, observer);
 }
 
+/*!
+    Remove \a observer for all notifications from \a poster.
+*/
 void NotificationCenter::unobserve(const QObject *poster, const QObject *observer)
 {
     unobserve(poster, "", observer);
 }
 
 /*!
-    TODO: \a sender \a signal \a receiver
+    Remove \a observer for \a notification from \a poster.
 */
 void NotificationCenter::unobserve(const QObject *poster, const QString & notification, const QObject *observer)
 {
@@ -120,7 +140,11 @@ void NotificationCenter::unobserve(const QObject *poster, const QString & notifi
 }
 
 /*!
-    TODO: \a sender \a signal \a val0 \a val1 \a val2 \a val3 \a val4 \a val5 \a val6 \a val7 \a val8 \a val9
+    Post \a notification from \a poster.
+    
+    You can pass up to ten arguments (\a val0, \a val1, \a val2, \a val3,
+    \a val4, \a val5, \a val6, \a val7, \a val8, and \a val9) to this method
+    call.
 */
 void NotificationCenter::post(QObject *poster, const QString & notification,
                               QGenericArgument val0 /* = QGenericArgument( 0 ) */, QGenericArgument val1 /* = QGenericArgument() */, QGenericArgument val2 /* = QGenericArgument() */, QGenericArgument val3 /* = QGenericArgument() */, QGenericArgument val4 /* = QGenericArgument() */, QGenericArgument val5 /* = QGenericArgument() */, QGenericArgument val6 /* = QGenericArgument() */, QGenericArgument val7 /* = QGenericArgument() */, QGenericArgument val8 /* = QGenericArgument() */, QGenericArgument val9 /* = QGenericArgument() */)
@@ -149,9 +173,8 @@ void NotificationCenter::post(QObject *poster, const QString & notification,
     d_ptr->poster = 0;
 }
 
-
 /*!
-    TODO:
+    Returns a pointer to the object that posted the notification.
 */
 QObject *NotificationCenter::poster() const
 {

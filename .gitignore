@@ -1,3 +1,6 @@
+doc/qtxcore/
+tests/auto/notificationcenter/tst_notificationcenter
+
 # Mac OS X
 .DS_Store
 
