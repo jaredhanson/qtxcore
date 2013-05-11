@@ -3,7 +3,19 @@
 QtxCore provides extra core classes that are generally useful to Qt applications
 and libraries.
 
-## Tests
+## Build
+
+To build a dynamic library:
+
+    $ qmake CONFIG+=dylib
+    $ make
+    
+To build a static library:
+
+    $ qmake CONFIG+=static
+    $ make
+
+## Test
 
 To run the test suite, first configure and build QtxCore as a dynamic library,
 which each test executable will link against.  Then invoke the `check` target
